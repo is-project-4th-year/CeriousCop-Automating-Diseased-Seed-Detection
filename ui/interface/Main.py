@@ -33,5 +33,19 @@ class MainApp(App):
         sm.add_widget(Page2(name='page2'))
         return sm
 
+    def compile_for_android(self):
+        from kivy.utils import platform
+        if platform == 'android':
+            from jnius import autoclass
+            PythonActivity = autoclass('org.kivy.android.PythonActivity')
+            activity = PythonActivity.mActivity
+            # Example: Set the activity to full screen
+            activity.getWindow().addFlags(1024)  # FLAG_FULLSCREEN
+            # Add more Android-specific configurations as needed
+            activity.getWindow().setFlags(128, 128)  # FLAG_KEEP_SCREEN_ON
+            print("Compiled for Android with specific configurations.")
+    
+    
+
 if __name__ == '__main__':
     MainApp().run()
