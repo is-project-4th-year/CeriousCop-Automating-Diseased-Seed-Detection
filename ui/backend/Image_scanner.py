@@ -1,4 +1,4 @@
-import ../../model/train.py
+from ...model import train
 
 class Image:
     def __init__(self, image_path, label):
