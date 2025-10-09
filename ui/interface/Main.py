@@ -2,7 +2,8 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-
+from Login import LoginScreen 
+from Splash-screen import SplashApp# Importing the LoginScreen from Login.py
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

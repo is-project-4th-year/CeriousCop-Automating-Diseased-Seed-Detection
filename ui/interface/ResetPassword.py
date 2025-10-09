@@ -4,6 +4,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
+from ..backend.User import User
 
 class ResetPasswordScreen(BoxLayout):
     def __init__(self, **kwargs):
@@ -32,12 +33,15 @@ class ResetPasswordScreen(BoxLayout):
         old_password = self.old_password_input.text
         new_password = self.new_password_input.text
         confirm_password = self.confirm_password_input.text
+        
 
         if not username or not old_password or not new_password or not confirm_password:
             self.show_popup("Error", "All fields are required.")
         elif new_password != confirm_password:
             self.show_popup("Error", "New passwords do not match.")
         else:
+            user = User(username, old_password)
+            user.reset_password()
             # Here you would add logic to verify old password and update credentials
             self.show_popup("Success", "Password has been reset.")
 

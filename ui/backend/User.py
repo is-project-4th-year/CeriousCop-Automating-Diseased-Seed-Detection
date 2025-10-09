@@ -26,7 +26,7 @@ class User:
             isLoggedIn = True
         return isLoggedIn
 
-    def signup(self, username, password, role):
+    def signup(self, username, password, role='user'):
         isSignedUp = False
 
         if not self.collection.find_one({"username": username}):

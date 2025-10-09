@@ -39,6 +39,8 @@ class SignUpForm(BoxLayout):
         elif password != confirm:
             self.show_popup("Passwords do not match.")
         else:
+            user = User(username, email, password)
+            user.signup(username, password)
             # Here you would add logic to save the user data
             self.show_popup("Registration successful!")
 

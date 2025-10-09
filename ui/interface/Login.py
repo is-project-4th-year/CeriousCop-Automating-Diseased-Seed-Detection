@@ -4,7 +4,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from ..backend.User import User  # Assuming there's a User class in backend.User module
-
+from SignUp import SignUpForm  # Assuming there's a SignUpScreen in SignUp.py
 class LoginScreen(BoxLayout):
     def __init__(self, **kwargs):
         super(LoginScreen, self).__init__(orientation='vertical', **kwargs)
@@ -27,14 +27,23 @@ class LoginScreen(BoxLayout):
         self.add_widget(self.message)
 
     def on_login(self, instance):
-        user = self.username.text
+        username = self.username.text
         pwd = self.password.text
-        if user == "admin" and pwd == "password":
+        user = User(username, pwd, 'user')
+        if user.login(username, pwd):
             self.message.text = "Login successful!"
             self.message.color = (0,1,0,1)
+            self.manager.current = '2FA'  # Navigate to the 2FA screen
         else:
             self.message.text = "Invalid credentials."
             self.message.color = (1,0,0,1)
+
+        #if user == "admin" and pwd == "password":
+        #    self.message.text = "Login successful!"
+        #    self.message.color = (0,1,0,1)
+        #else:
+        #    self.message.text = "Invalid credentials."
+        #    self.message.color = (1,0,0,1)
 
 class LoginApp(App):
     def build(self):
