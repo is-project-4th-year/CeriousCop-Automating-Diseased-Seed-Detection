@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import random
 
 class User:
     def __init__(self, username, password, role):
@@ -66,7 +67,11 @@ class User:
         return True
 
     def two_factor_auth(self, code):
-        # Placeholder for actual 2FA implementation
-        # In a real scenario, this would verify the code sent to the user's device
-        return code == "123456"  # Example static code for demonstration
-        
+        # Simulate sending a code to the user (in real application, send via email/SMS)
+        generated_code = str(random.randint(100000, 999999))
+        print(f"Generated 2FA code (for testing purposes): {generated_code}")
+
+        # In a real application, you would compare the provided code with the sent code
+        return code == generated_code
+    
+

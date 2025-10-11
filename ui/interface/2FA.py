@@ -4,7 +4,8 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
-
+from ..backend.User import User  # Assuming there's a User class in backend.User module
+import Login
 class TwoFA(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', spacing=20, padding=40, **kwargs)
@@ -30,9 +31,10 @@ class TwoFA(BoxLayout):
 
     def verify_otp(self, instance):
         otp = self.otp_input.text
-        # Simulate OTP verification (replace with actual implementation)
-        if otp == "123456":  # Example OTP
+        user = Login.get_current_user()  # Get the currently logged-in user
+        user.two_factor_auth(otp)
             msg = "OTP verified!"
+            self.manager.current = 'Home page'  # Navigate to the main screen
         else:
             msg = "Invalid OTP!"
         popup = Popup(title="OTP Verification", content=Label(text=msg), size_hint=(0.6, 0.3))

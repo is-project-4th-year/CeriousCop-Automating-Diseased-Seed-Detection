@@ -45,6 +45,9 @@ class LoginScreen(BoxLayout):
         #    self.message.text = "Invalid credentials."
         #    self.message.color = (1,0,0,1)
 
+    def get_current_user():
+        return on_login.user
+
 class LoginApp(App):
     def build(self):
         return LoginScreen()
