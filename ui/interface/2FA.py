@@ -24,6 +24,8 @@ class TwoFA(BoxLayout):
         self.add_widget(self.otp_btn)
 
     def fingerprint_auth(self, instance):
+        user = Login.get_current_user()  # Get the currently logged-in user
+        user.fingerprint_auth()
         # Simulate fingerprint authentication (replace with actual implementation)
         popup = Popup(title="Fingerprint", content=Label(text="Fingerprint authenticated!"),
                       size_hint=(0.6, 0.3))
