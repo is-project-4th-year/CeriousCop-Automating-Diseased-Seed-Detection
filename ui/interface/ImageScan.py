@@ -5,6 +5,7 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 import cv2
+from ....model.predict import predict
 
 class CameraInterface(BoxLayout):
     def __init__(self, **kwargs):
@@ -21,6 +22,7 @@ class CameraInterface(BoxLayout):
         if not self.capture:
             self.capture = cv2.VideoCapture(0)
             self.event = Clock.schedule_interval(self.update, 1.0 / 30)
+
             self.capture_btn.text = 'Stop Camera'
         else:
             self.stop_camera()
@@ -40,6 +42,13 @@ class CameraInterface(BoxLayout):
             texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
             texture.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
             self.image_widget.texture = texture
+            # For demonstration, let's predict on the current frame every second
+            if int(dt * 30) % 30 == 0:  # Roughly
+                cv2.imwrite("current_frame.jpg", frame)
+                prediction = predict("current_frame.jpg")
+                print(f"Prediction: {prediction}")
+               
+
 
     def on_stop(self):
         self.stop_camera()
