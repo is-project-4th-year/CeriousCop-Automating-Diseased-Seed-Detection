@@ -1,4 +1,5 @@
 from ...model import train
+from ...model import predict
 
 class Image:
     def __init__(self, image_path, label):
@@ -12,8 +13,8 @@ class Image:
         return self.label
 
     def scan_image(self):
-        model = train.model # Load the trained model
-        result = model.predict(self.image_path) 
+        
+        result = predict.predict(self.image_path) 
         return f"Scanning image at {self.image_path} for label {self.label}" # Predict using the model
         return result
 

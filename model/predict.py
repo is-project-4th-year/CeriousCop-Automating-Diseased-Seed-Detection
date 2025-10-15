@@ -29,12 +29,16 @@ def predict(image_path):
     with torch.no_grad():
         outputs = model(image).logits
         _, predicted = torch.max(outputs, 1)
+        
+
+
 
     # If the prediction is for a bad seed, display bounding boxes
     if predicted.item() == 1:  # Assuming class 1 is 'bad seed'
         # Load original image for display
         orig_image = cv2.imread(image_path)
         orig_image = cv2.cvtColor(orig_image, cv2.COLOR_BGR2RGB)
+        
 
         # Dummy bounding box coordinates (replace with your detection logic)
         # Example: [(x1, y1, x2, y2), ...]
