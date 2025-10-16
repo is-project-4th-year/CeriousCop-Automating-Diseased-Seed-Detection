@@ -5,17 +5,21 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.properties import StringProperty
 from ..backend.User import User
+import Login
 
 class ProfileView(BoxLayout):
-    username = StringProperty("JohnDoe")
-    email = StringProperty("john@example.com")
+    user = LoginScreen.get_current_user()
+    username = StringProperty(user.username if user else "Guest")
+    email = StringProperty(user.email if user else "guest@example.com")
+    placeholder = StringProperty("Enter new username")
+    
 
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
 
         self.add_widget(Label(text="Profile", font_size=24, size_hint=(1, 0.2)))
 
-        self.username_input = TextInput(text=self.username, multiline=False)
+        self.username_input = TextInput(text=self.username, multiline=False,placeholder)
         self.add_widget(Label(text="Username:"))
         self.add_widget(self.username_input)
 
