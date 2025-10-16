@@ -20,7 +20,10 @@ class AdminLoginScreen(BoxLayout):
         login_btn = Button(text="Login", size_hint=(1, 0.3))
         login_btn.bind(on_press=self.authenticate)
         self.add_widget(login_btn)
-
+        
+        forgot_btn = Button(text="Forgot Password?", size_hint=(1, 0.2))
+        forgot_btn.bind(on_press=self.forgot_password)
+        self.add_widget(forgot_btn)
     def authenticate(self, instance):
         username = self.username_input.text
         password = self.password_input.text
@@ -34,6 +37,9 @@ class AdminLoginScreen(BoxLayout):
                       content=Label(text=message),
                       size_hint=(None, None), size=(300, 150))
         popup.open()
+
+    def forgot_password(self, instance):
+        self.manager.current = 'ResetPassword'
 
 class AdminLoginApp(App):
     def build(self):

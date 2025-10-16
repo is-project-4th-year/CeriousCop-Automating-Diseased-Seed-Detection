@@ -23,6 +23,10 @@ class LoginScreen(BoxLayout):
         self.login_btn.bind(on_press=self.on_login)
         self.add_widget(self.login_btn)
 
+        self.forgot_btn = Button(text="Forgot Password?", size_hint=(1, 0.2))
+        self.forgot_btn.bind(on_press=self.forgot_password)
+        self.add_widget(forgot_btn)
+
         self.message = Label(text='', color=(1,0,0,1), size_hint=(1, 0.15))
         self.add_widget(self.message)
 
@@ -47,6 +51,9 @@ class LoginScreen(BoxLayout):
 
     def get_current_user():
         return on_login.user
+
+    def forgot_password(self, instance):
+        self.manager.current = 'ResetPassword'
 
 class LoginApp(App):
     def build(self):
