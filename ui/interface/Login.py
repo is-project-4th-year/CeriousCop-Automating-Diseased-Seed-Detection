@@ -3,7 +3,16 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
-from ..backend.User import User  # Assuming there's a User class in backend.User module
+from kivy.uix.screenmanager import ScreenManager, Screen
+sm = ScreenManager()
+sm.add_widget(Screen(name='2FA'))  # Placeholder for 2FA screen
+sm.add_widget(Screen(name='ResetPassword'))  # Placeholder for Reset Password screen
+sm.add_widget(Screen(name='Home page'))  # Placeholder for Home page screen
+sm.add_widget(Screen(name='Login'))  # Login screen
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ui.backend.User import User # Assuming there's a User class in backend.User module
 from SignUp import SignUpForm  # Assuming there's a SignUpScreen in SignUp.py
 class LoginScreen(BoxLayout):
     def __init__(self, **kwargs):
@@ -25,7 +34,7 @@ class LoginScreen(BoxLayout):
 
         self.forgot_btn = Button(text="Forgot Password?", size_hint=(1, 0.2))
         self.forgot_btn.bind(on_press=self.forgot_password)
-        self.add_widget(forgot_btn)
+        self.add_widget(self.forgot_btn)
 
         self.message = Label(text='', color=(1,0,0,1), size_hint=(1, 0.15))
         self.add_widget(self.message)

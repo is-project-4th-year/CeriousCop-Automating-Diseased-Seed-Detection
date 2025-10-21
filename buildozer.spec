@@ -35,11 +35,11 @@ version = 0.1
 
 # (str) Application versioning (method 2)
 #version.regex = __version__ = ['"](.*)['"]
-version.filename = %(source.dir)s/Main.py
+#version.filename = %(source.dir)s/Main.py
 
 # (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,torch,transformers
+# comma separated e.g. requirements = sqlite3,kivy,pyjnius==1.6.1,cython==3.0.10
+requirements = python3,kivy==2.3.0,torch,transformers,pymongo
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -112,7 +112,7 @@ android.minapi = 21
 android.sdk = 9
 
 # (str) Android NDK version to use
-android.ndk = 23b
+android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 android.ndk_api = 21
