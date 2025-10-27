@@ -1,0 +1,1 @@
+ self.manager.current = 'Home page'

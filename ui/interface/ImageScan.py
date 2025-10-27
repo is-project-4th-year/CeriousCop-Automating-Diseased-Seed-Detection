@@ -5,7 +5,11 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 import cv2
-from ....model.predict import predict
+#from ....model.predict import predict
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ui.backend.Image_scanner import ScanImage
 
 class CameraInterface(BoxLayout):
     def __init__(self, **kwargs):
@@ -45,7 +49,8 @@ class CameraInterface(BoxLayout):
             # For demonstration, let's predict on the current frame every second
             if int(dt * 30) % 30 == 0:  # Roughly
                 cv2.imwrite("current_frame.jpg", frame)
-                prediction = predict("current_frame.jpg")
+                image_instance = ScanImage("current_frame.jpg", "label")  # Create an instance of the Image class
+                #prediction = predict("current_frame.jpg")
                 print(f"Prediction: {prediction}")
                
 

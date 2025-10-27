@@ -1,7 +1,13 @@
-from ...model import train
-from ...model import predict
+#from ...model import train
+#from ...model import predict
+import torch
+from transformers import BertTokenizer, BertModel
 
-class Image:
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertModel.from_pretrained('bert-base-uncased')
+
+
+class ScanImage:
     def __init__(self, image_path, label):
         self.image_path = image_path
         self.label = label
@@ -17,5 +23,16 @@ class Image:
         result = predict.predict(self.image_path) 
         return f"Scanning image at {self.image_path} for label {self.label}" # Predict using the model
         return result
+
+    def generate_prompt(self, text):
+        prompt = f"What are the diseases likely associated with {text}?"
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        model = BertModel.from_pretrained('bert-base-uncased')
+
+        inputs = tokenizer(prompt, return_tensors="pt")
+        outputs = model(**inputs)
+        return outputs
+
+
 
     

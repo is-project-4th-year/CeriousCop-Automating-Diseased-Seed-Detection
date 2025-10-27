@@ -3,8 +3,10 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.core.window import Window
+from kivy.uix.screenmanager import ScreenManager, Screen
 
-class HomePage(BoxLayout):
+
+class HomePage(BoxLayout,Screen):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=40, spacing=20, **kwargs)
         self.add_widget(Label(

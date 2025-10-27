@@ -4,7 +4,10 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
-from ...backend.User import User  # Assuming there's a User class in backend.User module
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ui.backend.User import User  # Assuming there's a User class in backend.User module
 class AdminLoginScreen(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
@@ -28,9 +31,9 @@ class AdminLoginScreen(BoxLayout):
         username = self.username_input.text
         password = self.password_input.text
         user = User(username, password, 'admin')
-        if user.login(username, password):
+        if user.adminLogin(username, password):
            self.show_popup("Success", "Admin login successful!")
-           self.manager.current = 'Admin-dashboard'
+           #self.manager.current = 'Admin-dashboard'
             # Navigate to admin dashboard or next screen
     def show_popup(self, title, message):
         popup = Popup(title=title,

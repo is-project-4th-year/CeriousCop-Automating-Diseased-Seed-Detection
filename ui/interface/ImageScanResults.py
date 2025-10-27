@@ -5,6 +5,12 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty, ListProperty
 from kivy.lang import Builder
+from kivy.clock import Clock
+from ImageScan import CameraInterface
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ui.backend.Image_scanner import Image
 
 Builder.load_string("""
 <ImageScanResultsPage>:
@@ -63,6 +69,8 @@ class ImageScanResultsPage(BoxLayout):
 
     def on_submit(self):
         other_problems = self.ids.other_problems_input.text
+        Imagescanner = CameraInterface().update(0).image_instance
+        Imagescanner.generate_prompt(other_problems)
         # Handle submission logic here (e.g., save results, send to backend, etc.)
         print("Scan Results:", self.scan_results)
         print("Other Visible Problems:", other_problems)

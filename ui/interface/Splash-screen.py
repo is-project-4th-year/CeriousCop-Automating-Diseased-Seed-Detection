@@ -21,7 +21,7 @@ class SplashApp(App):
     def build(self):
         sm = ScreenManager()
         splash_layout = BoxLayout(orientation='vertical', padding=50)
-        splash_layout.add_widget(Image(source='logo.png'))  # Replace with your logo path
+        splash_layout.add_widget(Image(source='../../C.png'))  # Replace with your logo path
         splash_layout.add_widget(Label(text="CeriousCop", font_size=40))
         splash_layout.add_widget(Label(text="Automating Diseased Seed Detection", font_size=20))
         splash = SplashScreen(name='splash')

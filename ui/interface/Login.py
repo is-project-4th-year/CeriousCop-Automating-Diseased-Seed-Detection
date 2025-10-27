@@ -4,15 +4,16 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
+from Homepage import HomePage
+from kivy.uix.popup import Popup
 sm = ScreenManager()
-sm.add_widget(Screen(name='2FA'))  # Placeholder for 2FA screen
-sm.add_widget(Screen(name='ResetPassword'))  # Placeholder for Reset Password screen
-sm.add_widget(Screen(name='Home page'))  # Placeholder for Home page screen
-sm.add_widget(Screen(name='Login'))  # Login screen
+  # Login scree
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from ui.backend.User import User # Assuming there's a User class in backend.User module
+from ui.backend.User import User 
+
+# Assuming there's a User class in backend.User module
 from SignUp import SignUpForm  # Assuming there's a SignUpScreen in SignUp.py
 class LoginScreen(BoxLayout):
     def __init__(self, **kwargs):
@@ -38,15 +39,19 @@ class LoginScreen(BoxLayout):
 
         self.message = Label(text='', color=(1,0,0,1), size_hint=(1, 0.15))
         self.add_widget(self.message)
+        
 
     def on_login(self, instance):
         username = self.username.text
         pwd = self.password.text
         user = User(username, pwd, 'user')
         if user.login(username, pwd):
-            self.message.text = "Login successful!"
-            self.message.color = (0,1,0,1)
-            self.manager.current = '2FA'  # Navigate to the 2FA screen
+            self.popup = Popup(title='Login Successful',
+                          content=Label(text='Welcome, {}!'.format(username)),
+                          size_hint=(0.6, 0.4))
+            self.popup.open()
+            return user
+              # Navigate to the 2FA screen
         else:
             self.message.text = "Invalid credentials."
             self.message.color = (1,0,0,1)
@@ -58,8 +63,13 @@ class LoginScreen(BoxLayout):
         #    self.message.text = "Invalid credentials."
         #    self.message.color = (1,0,0,1)
 
-    def get_current_user():
-        return on_login.user
+    def get_current_user(self):
+        username = self.username.text
+        pwd = self.password.text
+        user = User(username, pwd, 'user')
+        if user.login(username, pwd):
+            return user
+        return None
 
     def forgot_password(self, instance):
         self.manager.current = 'ResetPassword'

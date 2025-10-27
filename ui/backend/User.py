@@ -1,9 +1,10 @@
 from pymongo import MongoClient
 import random
-
+import smtplib
 class User:
     def __init__(self, username, password, role):
         self.username = username
+       
         self.password = password
         self.role = role
         self.client = MongoClient('mongodb://localhost:27017/')
@@ -27,12 +28,37 @@ class User:
             isLoggedIn = True
         return isLoggedIn
 
+    def adminLogin(self, username, password):
+        isLoggedIn = False
+
+        user = self.collection.find_one({"username": username, "password": password})
+        if user and user['role'] == 'admin':
+            self.username = user['username']
+            self.role = user['role']
+            self.password = user['password']
+            isLoggedIn = True
+        return isLoggedIn
+
+    def adminSignup(self, username,email,password, role='admin'):
+        isSignedUp = False
+
+        if not self.collection.find_one({"username": username}):
+            self.collection.insert_one({
+                "username": username,
+                "email": email,
+                "password": password,
+                "role": role
+            })
+            isSignedUp = True
+        return isSignedUp
+
     def signup(self, username, password, role='user'):
         isSignedUp = False
 
         if not self.collection.find_one({"username": username}):
             self.collection.insert_one({
                 "username": username,
+                "email": email,
                 "password": password,
                 "role": role
             })
@@ -60,6 +86,16 @@ class User:
             isDeleted = True
         return isDeleted
 
+    def update_account(self,old_username,old_email,old_password, new_username, new_email, new_password):
+        isUpdated = False
+
+        user = self.collection.find_one({"username": old_username, "email": old_email, "password": old_password})
+        if user:
+            self.collection.update_one({"username":new_username,"email":new_email,"password":new_password})
+            isUpdated = True
+
+        return isUpdated
+
     def logout(self):
         self.username = None
         self.password = None
@@ -69,14 +105,15 @@ class User:
     def two_factor_auth(self, code):
         # Simulate sending a code to the user (in real application, send via email/SMS)
         generated_code = str(random.randint(100000, 999999))
-        print(f"Generated 2FA code (for testing purposes): {generated_code}")
 
+        
         # In a real application, you would compare the provided code with the sent code
         return code == generated_code
 
     def fingerprint_auth(self):
         try:
             from jnius import autoclass
+
 
             PythonActivity = autoclass('org.kivy.android.PythonActivity')
             FingerprintHelper = autoclass('org.kivy.android.FingerprintHelper')
@@ -94,3 +131,9 @@ class User:
         except Exception as e:
             print(f"Fingerprint error: {e}")
             return False
+
+    def getAllUsers(self):
+        users = self.collection.find()
+        return users
+
+    

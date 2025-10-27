@@ -4,7 +4,10 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
-from ...backend.User import User  # Assuming there's a User class in backend.User module
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ui.backend.User import User  # Assuming there's a User class in backend.User module
 class AdminSignup(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
@@ -33,10 +36,10 @@ class AdminSignup(BoxLayout):
         password = self.password.text
         confirm_password = self.confirm_password.text
         user = User(username, email, password, 'admin')
-        user.signup(username, password)
+        user.adminSignup(username, email,password)
 
         self.show_popup('Success', 'Admin account created successfully!')
-        self.manager.current = 'Admin_login'  # Navigate to admin login screen
+        #self.manager.current = 'Admin_login'  # Navigate to admin login screen
 
     def show_popup(self, title, message):
         popup = Popup(title=title,

@@ -5,16 +5,16 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
+from Homepage import HomePage
 sm=ScreenManager()
-sm.add_widget(Screen(name='Home page'))  # Placeholder for Home page screen
-sm.add_widget(Screen(name='Login'))  # Login screen
+  # Login screen
 
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.User import User  # Assuming there's a User class in backend.User module
 
-class SignUpForm(BoxLayout):
+class SignUpForm(BoxLayout,Screen):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
 
@@ -36,6 +36,8 @@ class SignUpForm(BoxLayout):
         self.register_btn.bind(on_press=self.register)
         self.add_widget(self.register_btn)
 
+        
+
     def register(self, instance):
         username = self.username_input.text.strip()
         email = self.email_input.text.strip()
@@ -50,8 +52,8 @@ class SignUpForm(BoxLayout):
             user = User(username, email, password)
             user.signup(username, password)
             # Here you would add logic to save the user data
-            self.show_popup("Registration successful!")
-            self.manager.current = 'Home page'
+            #self.show_popup("Registration successful!")
+            #self.manager.current = 'Home page'  # Navigate to Home page
 
     def show_popup(self, message):
         popup = Popup(title='Sign Up', content=Label(text=message),
