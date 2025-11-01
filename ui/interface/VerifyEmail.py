@@ -7,6 +7,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.User import User 
+import smtplib
+from Login import LoginScreen
+
 
 class VerifyEmailScreen(BoxLayout):
     def __init__(self, **kwargs):
@@ -22,9 +25,10 @@ class VerifyEmailScreen(BoxLayout):
 
     def verify_otp(self, instance):
         otp = self.otp_input.text.strip()
-        two_factor_auth(otp)
+        user = LoginScreen.get_current_user()
+        two_factor_auth(otp,user.email)
         # Replace '123456' with your actual OTP verification logic
-        if otp == "123456":
+        if two_factor_auth(otp,user.email):
             self.result_label.text = "OTP Verified Successfully!"
             self.result_label.color = (0, 1, 0, 1)
         else:

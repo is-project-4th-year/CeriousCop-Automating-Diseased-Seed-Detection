@@ -5,11 +5,18 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 import cv2
+from kivy.uix.screenmanager import Screen, ScreenManager
 #from ....model.predict import predict
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.Image_scanner import ScanImage
+
+class ImageScanScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = CameraInterface()
+        self.add_widget(layout)
 
 class CameraInterface(BoxLayout):
     def __init__(self, **kwargs):

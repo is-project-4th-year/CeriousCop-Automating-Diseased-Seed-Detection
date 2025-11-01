@@ -10,6 +10,7 @@ class User:
         self.client = MongoClient('mongodb://localhost:27017/')
         self.db = self.client['user_database']
         self.collection = self.db['users']
+        
 
     def get_username(self):
         return self.username
@@ -102,9 +103,16 @@ class User:
         self.role = None
         return True
 
-    def two_factor_auth(self, code):
+    def two_factor_auth(self, code, email):
         # Simulate sending a code to the user (in real application, send via email/SMS)
         generated_code = str(random.randint(100000, 999999))
+        
+
+        server = smtplib.SMTP('smtp.example.com', 587)
+        server.starttls()
+        server.login('your_email@example.com', 'your_password')
+        server.sendmail('your_email@example.com', email, 'Please use the OTP below to verify your email:',{generated_code})
+        server.quit()
 
         
         # In a real application, you would compare the provided code with the sent code

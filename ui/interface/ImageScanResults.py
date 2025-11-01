@@ -10,10 +10,14 @@ from ImageScan import CameraInterface
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from ui.backend.Image_scanner import Image
+from ui.backend.Image_scanner import ScanImage
+
+
+class ImageScanResultsLayout(BoxLayout):
+    
 
 Builder.load_string("""
-<ImageScanResultsPage>:
+<ImageScanResultsLayout>:
     orientation: 'vertical'
     padding: 20
     spacing: 10

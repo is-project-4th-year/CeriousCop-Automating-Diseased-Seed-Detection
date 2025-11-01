@@ -1,1 +1,1 @@
- self.manager.current = 'Home page'
+from kivy.uix.screenmanager import Screen, ScreenManager

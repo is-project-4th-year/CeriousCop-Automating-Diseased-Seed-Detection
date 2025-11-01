@@ -14,7 +14,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from ui.backend.User import User 
 
 # Assuming there's a User class in backend.User module
-from SignUp import SignUpForm  # Assuming there's a SignUpScreen in SignUp.py
+from SignUp import SignUpForm  
+
+class LoginScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = LoginScreen()
+        self.add_widget(layout)
+        
 class LoginScreen(BoxLayout):
     def __init__(self, **kwargs):
         super(LoginScreen, self).__init__(orientation='vertical', **kwargs)

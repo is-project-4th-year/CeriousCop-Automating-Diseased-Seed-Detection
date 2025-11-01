@@ -4,10 +4,18 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
+from kivy.uix.screenmanager import Screen, ScreenManager
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from ui.backend.User import User  # Assuming there's a User class in backend.User module
+from ui.backend.User import User  # Assuming there's a User class in backend.User 
+
+class AdminSignupScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = AdminSignup()
+        self.add_widget(layout)
+        
 class AdminSignup(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)

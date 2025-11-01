@@ -10,6 +10,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from ui.backend.User import User 
 from Login import LoginScreen
 
+class ProfileScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = ProfileView()
+        self.add_widget(layout)
+
 class ProfileView(BoxLayout):
     user = LoginScreen.get_current_user(LoginScreen())
     username = StringProperty(user.username if user else "Guest")

@@ -5,7 +5,13 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.filechooser import FileChooserIconView
 from kivy.uix.popup import Popup
+from kivy.uix.screenmanager import Screen, ScreenManager
 
+class FileSelectScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = FileSelect()
+        self.add_widget(layout)
 class FileSelect(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', **kwargs)

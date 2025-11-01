@@ -4,6 +4,7 @@ from kivy.uix.image import Image
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.uix.label import Label
+from Homepage import HomePage
 
 class SplashScreen(Screen):
     def on_enter(self):
@@ -15,8 +16,9 @@ class SplashScreen(Screen):
 class MainScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.add_widget(Label(text="Main App Screen", font_size=32))
-
+        layout = HomePage()
+        
+        self.add_widget(layout)
 class SplashApp(App):
     def build(self):
         sm = ScreenManager()

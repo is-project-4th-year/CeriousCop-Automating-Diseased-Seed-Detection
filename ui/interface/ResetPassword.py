@@ -9,6 +9,12 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.User import User 
 
+class ResetPasswordScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = ResetPasswordScreen()
+        self.add_widget(layout)
+
 class ResetPasswordScreen(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(orientation='vertical', spacing=10, padding=20, **kwargs)

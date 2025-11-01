@@ -14,7 +14,12 @@ admin = AdminLoginScreen().authenticate(AdminLoginScreen())
 admin_user = admin if admin else User("admin", "adminpass", "admin")
 
 users = admin_user.getAllUsers()
-
+class ManageUsersScreen(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(orientation='vertical', padding=20, spacing=10, **kwargs)
+        layout = UserTable()
+        self.add_widget(layout)
+        
 class UserTable(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
