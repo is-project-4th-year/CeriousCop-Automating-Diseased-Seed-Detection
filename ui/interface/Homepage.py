@@ -5,6 +5,8 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 from SignUp import SignUpForm
+from Login import LoginScreen
+from ImageScan import ImageScanScreen
 
 class SignUpScreen(Screen):
     def __init__(self, **kwargs):
@@ -38,9 +40,16 @@ class HomePage(BoxLayout):
             on_press=self.create_account
 
         )
+        btn_account = Button(
+            text="Login",
+            size_hint=(1, 0.15),
+            on_press=self.login
+
+        )
         btn_detect = Button(
             text="Detect Diseased Seeds",
-            size_hint=(1, 0.15)
+            size_hint=(1, 0.15),
+            on_press=self.start_detection
         )
         btn_history = Button(
             text="View Detection History",
@@ -61,11 +70,23 @@ class HomePage(BoxLayout):
         # Logic to navigate to account creation screen
         pass
 
+    def login(self,instance):
+        sm=self.parent.parent
+        sm.current = 'login'
+
+    def start_detection(self, instance):
+        sm = self.parent.parent
+        sm.current = 'image_scan'
+        # Logic to navigate to diseased seed detection screen
+        pass
+
 class HomePageApp(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(HomePageScreen(name='home'))
         sm.add_widget(SignUpScreen(name='signup'))
+        sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(ImageScanScreen(name='image_scan'))
         sm.current = 'home'
         return sm
 

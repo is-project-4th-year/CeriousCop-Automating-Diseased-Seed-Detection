@@ -9,6 +9,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.User import User  # Assuming there's a User class in backend.User module
 import Login
+from Homepage import HomePageScreen
 from kivy.uix.screenmanager import Screen, ScreenManager
 
 class TwoFAScreen(Screen):
@@ -48,7 +49,8 @@ class TwoFA(BoxLayout):
         user.two_factor_auth(otp,user.email)
         if user.two_factor_auth(otp,user.email):
             msg = "OTP verified!"
-            self.manager.current = 'Home page'  # Navigate to the main screen
+            sm = self.parent.parent
+            sm.current = 'Home page'  # Navigate to the main screen
         else:
             msg = "Invalid OTP!"
         popup = Popup(title="OTP Verification", content=Label(text=msg), size_hint=(0.6, 0.3))
@@ -56,7 +58,11 @@ class TwoFA(BoxLayout):
 
 class TwoFAApp(App):
     def build(self):
-        return TwoFA()
+        sm=ScreenManager()
+        sm.add_widget(HomePageScreen(name='Home page'))
+        sm.add_widget(TwoFAScreen(name='2FA'))
+        return sm
+        
 
 if __name__ == "__main__":
     TwoFAApp().run()

@@ -56,9 +56,10 @@ class CameraInterface(BoxLayout):
             # For demonstration, let's predict on the current frame every second
             if int(dt * 30) % 30 == 0:  # Roughly
                 cv2.imwrite("current_frame.jpg", frame)
-                image_instance = ScanImage("current_frame.jpg", "label")  # Create an instance of the Image class
+                image_instance = ScanImage("current_frame.jpg", "label") 
+                result = image_instance.scan_image()  # Create an instance of the Image class
                 #prediction = predict("current_frame.jpg")
-                print(f"Prediction: {prediction}")
+                return result
                
 
 

@@ -11,7 +11,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ui.backend.Image_scanner import ScanImage
-
+from ImageScan import CameraInterface
 
 class ImageScanResultsLayout(BoxLayout):
     
@@ -56,7 +56,7 @@ Builder.load_string("""
 """)
 
 class ImageScanResultsPage(BoxLayout):
-    scan_results = ListProperty([])  # List of strings with scan results
+    scan_results = CameraInterface().update(0)  # Placeholder for actual scan results
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

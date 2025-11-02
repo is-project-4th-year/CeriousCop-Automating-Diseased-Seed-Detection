@@ -15,8 +15,9 @@ from ui.backend.User import User
 
 # Assuming there's a User class in backend.User module
 from SignUp import SignUpForm  
+from TwoFA import TwoFAScreen
 
-class LoginScreen(Screen):
+class LoginAppScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         layout = LoginScreen()
@@ -57,6 +58,9 @@ class LoginScreen(BoxLayout):
                           content=Label(text='Welcome, {}!'.format(username)),
                           size_hint=(0.6, 0.4))
             self.popup.open()
+            sm=self.parent.parent
+            sm.current = '2fa'
+
             return user
               # Navigate to the 2FA screen
         else:
@@ -83,7 +87,10 @@ class LoginScreen(BoxLayout):
 
 class LoginApp(App):
     def build(self):
-        return LoginScreen()
+        sm=ScreenManager()
+        sm.add_widget(LoginAppScreen(name='login'))
+        sm.add_widget(TwoFAScreen(name='2fa'))
+        return sm
 
 if __name__ == '__main__':
     LoginApp().run()
