@@ -1,4 +1,8 @@
-from train import model, device
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from model.train import model, device
 import torch
 from torchvision import transforms
 from PIL import Image

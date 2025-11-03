@@ -33,7 +33,7 @@ print("Classes:", train_dataset.classes)
 # -------------------------------
 model = ViTForImageClassification.from_pretrained(
     "google/vit-base-patch16-224",
-    num_labels=num_classes
+    num_labels=num_classes,
     ignore_mismatched_sizes=True
     
 )

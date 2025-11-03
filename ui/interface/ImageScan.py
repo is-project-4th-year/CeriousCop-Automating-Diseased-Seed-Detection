@@ -58,7 +58,7 @@ class CameraInterface(BoxLayout):
                 cv2.imwrite("current_frame.jpg", frame)
                 image_instance = ScanImage("current_frame.jpg", "label") 
                 result = image_instance.scan_image()  # Create an instance of the Image class
-                #prediction = predict("current_frame.jpg")
+               
                 return result
                
 
